@@ -218,19 +218,28 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(255, 112, 67, 0.8);
+    background: rgba(128, 128, 128, 0.3); /* полупрозрачный серый */
+    backdrop-filter: blur(5px); /* эффект размытия */
+    -webkit-backdrop-filter: blur(5px); /* поддержка Safari */
     border: none;
     color: white;
-    font-size: 24px;
-    padding: 10px 15px;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
     border-radius: 5px;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.gallery-btn.prev {
-    left: 10px;
+.gallery-btn:hover {
+    background: rgba(128, 128, 128, 0.5);
+    transform: scale(1.1);
 }
+
 
 .gallery-btn.next {
     right: 10px;
@@ -277,9 +286,13 @@
         </div>
         <div class="gallery-container">
         <div class="gallery">
-            <img src="1.jpg" class="gallery-image" alt="Фото 1">
-            <img src="2.jpg" class="gallery-image" alt="Фото 2">
-            <img src="photo3.jpg" class="gallery-image" alt="Фото 3">
+            <img src="1.jpg" class="gallery-image">
+            <img src="2.jpg" class="gallery-image">
+            <img src="3.jpg" class="gallery-image">
+            <img src="4.jpg" class="gallery-image">
+            <img src="5.jpg" class="gallery-image">
+            <img src="6.jpg" class="gallery-image">
+            <img src="7.jpg" class="gallery-image">
         </div>
             <button class="gallery-btn prev" onclick="changeSlide(-1)">❮</button>
             <button class="gallery-btn next" onclick="changeSlide(1)">❯</button>
@@ -313,5 +326,39 @@
             }
         </script>
     </div>
+    <script>
+    let currentIndex = 0;
+
+    function changeSlide(direction) {
+        const gallery = document.querySelector('.gallery');
+        const images = document.querySelectorAll('.gallery-image');
+        const total = images.length;
+
+        currentIndex = (currentIndex + direction + total) % total;
+        gallery.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    // Обработка свайпов
+    let startX = 0;
+
+    const galleryContainer = document.querySelector('.gallery-container');
+
+    galleryContainer.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+    }, false);
+
+    galleryContainer.addEventListener('touchend', function(e) {
+        let endX = e.changedTouches[0].clientX;
+        let diffX = startX - endX;
+
+        if (Math.abs(diffX) > 50) {
+            if (diffX > 0) {
+                changeSlide(1);
+            } else {
+                changeSlide(-1);
+            }
+        }
+    }, false);
+</script>
 </body>
 </html>
