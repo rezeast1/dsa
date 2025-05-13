@@ -191,6 +191,55 @@
   .star:nth-child(8) { top: 70%; right: 10%; --size: 27px; --rotation: -12deg; }
   .star:nth-child(9) { top: 20%; left: 25%; --size: 30px; --rotation: 15deg; }
   .star:nth-child(10) { top: 10%; right: 20%; --size: 15px; --rotation: -10deg; }
+        
+        .gallery-container {
+    position: relative;
+    max-width: 600px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 3px solid #FF7043;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.gallery {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+
+.gallery-image {
+    width: 100%;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 112, 67, 0.8);
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.gallery-btn.prev {
+    left: 10px;
+}
+
+.gallery-btn.next {
+    right: 10px;
+}
+
+.gallery-btn:hover {
+    background-color: #d84315;
+}
+
     </style>
 </head>
 <body>
@@ -214,8 +263,14 @@
                 <p><strong>📍 Место:</strong> Актобе, садоводческий коллектив 25-лет целины, 19</p>
             </div>
         </div>
-        <div class="map-container">
-            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A4343de30e3d8cd593eff2b4d6e1ea6a2895ca4d9536122fa2fa93d63167625fb&amp;width=100%25&amp;height=100%25&amp;lang=ru_RU&amp;scroll=true"></script>
+        <div class="gallery-container">
+        <div class="gallery">
+            <img src="photo1.jpg" class="gallery-image" alt="Фото 1">
+            <img src="photo2.jpg" class="gallery-image" alt="Фото 2">
+            <img src="photo3.jpg" class="gallery-image" alt="Фото 3">
+        </div>
+            <button class="gallery-btn prev" onclick="changeSlide(-1)">❮</button>
+            <button class="gallery-btn next" onclick="changeSlide(1)">❯</button>
         </div>
         <div class="input-group">
             <p>📝 Ваше имя и фамилия:</p>
